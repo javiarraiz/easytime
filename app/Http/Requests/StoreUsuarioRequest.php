@@ -22,12 +22,12 @@ class StoreUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'NUMERO_DOC'    => 'required|string|max:25|unique:usuario,NUMERO_DOC',
+            'NUMERO_DOC'    => 'required|string|max:25|unique:Usuario,NUMERO_DOC',
             'TIPO_DOC'	    => 'required|string|max:25',
             'NOM_USER'	    => 'required|string|max:25',
             'APE_USER'	    => 'required|string|max:25',
             'TEL_USER'	    => 'required|string|max:20',
-            'CORREO_USER'   => 'required|email|unique:usuario,CORREO_USER, email',
+            'CORREO_USER'   => 'required|email|unique:Usuario,CORREO_USER, email',
             'ROL_USER'      => 'required|string|in:Administrador,Jefe de Patio,CLiente',
         ];
     }

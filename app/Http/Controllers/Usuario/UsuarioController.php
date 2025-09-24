@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Usuario;
 use App\Models\Usuario;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Request\StoreUsuarioRequest;
+use App\Http\Request\UpdateUsuarioRequest;
 
 class UsuarioController extends Controller
 {
@@ -22,7 +24,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('usuario.create');
     }
 
     /**
@@ -30,7 +32,8 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        usuario::create($request->validated());
+        return redirect()->route('usuario.index')->with('ok','Usuario creado');
     }
 
     /**
@@ -46,7 +49,7 @@ class UsuarioController extends Controller
      */
     public function edit(Usuario $usuario)
     {
-        //
+        return view(usuario.edit);
     }
 
     /**
@@ -54,7 +57,8 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, Usuario $usuario)
     {
-        //
+        $usuario-update($request->validated());
+        return redirect()->route(usuario.index)->with('ok','Usuario actualizado');
     }
 
     /**
@@ -62,6 +66,11 @@ class UsuarioController extends Controller
      */
     public function destroy(Usuario $usuario)
     {
-        //
+        try {
+            $usuario->delete();
+            return back()->with('ok','Usuario eliminado');
+        } catch (\Throwable $usu) {
+            return back()->withErrors('No se puede eliminar, tiene registros relacionados');
+        }
     }
 }
