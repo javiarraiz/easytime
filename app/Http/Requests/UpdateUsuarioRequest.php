@@ -22,14 +22,15 @@ class UpdateUsuarioRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('usuario')->NUMERO_DOC;
+        $id = $this->route('usuario')->ID_USER;
         return [
-            'NUMERO_DOC'    => 'required|string|max:25|unique:Usuario,NUMERO_DOC',
+            'NUMERO_DOC' => ['required','string','max:25',Rule::unique('Usuario', 'NUMERO_DOC')->ignore($id, 'ID_USER')],
             'TIPO_DOC'	    => 'required|string|max:25',
             'NOM_USER'	    => 'required|string|max:25',
             'APE_USER'	    => 'required|string|max:25',
             'TEL_USER'	    => 'required|string|max:20',
-            'CORREO_USER'   => ['required','email',Rule::unique('Usuario', 'CORREO_USER')->ignore($id, 'ID_USER')]
+            'CORREO_USER'   => ['required','email',Rule::unique('Usuario', 'CORREO_USER')->ignore($id, 'ID_USER')],
+            'ROL_USER' => ['required',Rule::in(['Administrador', 'Jefe de Patio', 'Cliente'])]
         ];
     }
 
