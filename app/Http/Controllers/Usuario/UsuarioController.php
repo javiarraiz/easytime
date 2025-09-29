@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Usuario;
 use App\Models\Usuario;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Request\StoreUsuarioRequest;
-use App\Http\Request\UpdateUsuarioRequest;
+use App\Http\Requests\StoreUsuarioRequest;
+use App\Http\Requests\UpdateUsuarioRequest;
 
 class UsuarioController extends Controller
 {
@@ -30,9 +30,9 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUsuarioRequest $request)
     {
-        usuario::create($request->validated());
+        Usuario::create($request->validated());
         return redirect()->route('usuario.index')->with('ok','Usuario creado');
     }
 
@@ -49,16 +49,16 @@ class UsuarioController extends Controller
      */
     public function edit(Usuario $usuario)
     {
-        return view(usuario.edit);
+        return view('usuario.edit',compact('usuario'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(UpdateUsuarioRequest $request, Usuario $usuario)
     {
-        $usuario-update($request->validated());
-        return redirect()->route(usuario.index)->with('ok','Usuario actualizado');
+        $usuario->update($request->validated());
+        return redirect()->route('usuario.index')->with('ok','Usuario actualizado');
     }
 
     /**

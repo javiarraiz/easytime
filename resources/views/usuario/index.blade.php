@@ -9,8 +9,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <h1 class="text-lg font-bold mb-4">Datos usuarios</h1>
-                   
-                    <p>
+
+                   <p>
                         <a href="{{ route('usuario.create') }}">Nuevo</a>
                     </p>
                     @if (session('ok'))
@@ -27,6 +27,7 @@
                             <th class="px-4 py-2 border">Teléfono</th>
                             <th class="px-4 py-2 border">Email</th>
                             <th class="px-4 py-2 border">Rol</th>
+                            <th class="px-4 py-2 border">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +41,8 @@
                                 <td class="px-4 py-2 border">{{ $usu->CORREO_USER }}</td>
                                 <td class="px-4 py-2 border">{{ $usu->ROL_USER }}</td>
                                 <td>
-                                    <a href="{{ route('usuario.edit', &usu) }}">Editar</a>
+                                    <a href="{{ route('usuario.edit', $usu) }}">Editar</a>
+
                                     <form action="{{ route('usuario.destroy', $usu) }}" method="POST"
                                         style="display:inline" onsubmit="return confirm('¿Eliminar?')">
                                         @csrf @method('DELETE')
@@ -80,5 +82,3 @@
         });
     </script>
 </x-app-layout>
-</x-app-layout>
-
